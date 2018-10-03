@@ -1,0 +1,1 @@
+[![pipeline status](https://gitlab.com/sr3u/s3m-api/badges/master/pipeline.svg)](https://gitlab.com/sr3u/s3m-api/commits/master)
