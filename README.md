@@ -1,1 +1,1 @@
-[![JitPack](https://jitpack.io/v/marasm-group/S3M-API.svg)](https://jitpack.io/#marasm-group/S3M-API)
+[![JitPack](https://jitpack.io/v/marasm-group/S3M-API.svg)](https://jitpack.io/#marasm-group/S3M-API) [![Build Status](https://travis-ci.org/marasm-group/S3M-API.svg?branch=master)](https://travis-ci.org/marasm-group/S3M-API)
