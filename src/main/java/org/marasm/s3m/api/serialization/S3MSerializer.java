@@ -6,5 +6,5 @@ public interface S3MSerializer {
 
     byte[] serialize(Serializable object);
 
-    <T> T deserialize(byte[] data);
+    <T extends Serializable> T deserialize(byte[] data);
 }
