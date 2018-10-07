@@ -4,17 +4,19 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.marasm.s3m.api.S3MNode;
 import org.marasm.s3m.api.S3MQueue;
+import org.marasm.s3m.api.serialization.S3MSerializer;
 
-import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 
 @RequiredArgsConstructor
 public class ConsumerS3MNode implements S3MNode {
 
+    protected S3MSerializer serializer;
     private List<S3MQueue> inputQueues;
     @NonNull
-    private Consumer<List<Serializable>> consumer;
+    private Consumer<List<byte[]>> consumer;
 
     @Override
     public List<S3MQueue> getInputQueues() {
@@ -37,8 +39,13 @@ public class ConsumerS3MNode implements S3MNode {
     }
 
     @Override
-    public List<Serializable> process(List<Serializable> input) throws Exception {
+    public List<byte[]> process(List<byte[]> input) throws Exception {
         consumer.accept(input);
         return null;
+    }
+
+    @Override
+    public void init(Map<String, String> properties, S3MSerializer serializer) {
+        this.serializer = serializer;
     }
 }

@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.ToString;
 import org.marasm.s3m.api.S3MQueue;
 
-import java.io.Serializable;
 import java.util.List;
 
 @ToString
@@ -22,10 +21,10 @@ public abstract class BinaryS3MNode extends JoiningS3MNode {
     }
 
     @Override
-    public Serializable join(List<Serializable> input) throws Exception {
+    public byte[] join(List<byte[]> input) throws Exception {
         return process(input.get(0), input.get(1));
     }
 
-    public abstract Serializable process(Serializable inputA, Serializable inputB) throws Exception;
+    public abstract byte[] process(byte[] inputA, byte[] inputB) throws Exception;
 
 }

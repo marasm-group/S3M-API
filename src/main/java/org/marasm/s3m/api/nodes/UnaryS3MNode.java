@@ -4,15 +4,17 @@ import lombok.AllArgsConstructor;
 import lombok.ToString;
 import org.marasm.s3m.api.S3MNode;
 import org.marasm.s3m.api.S3MQueue;
+import org.marasm.s3m.api.serialization.S3MSerializer;
 
-import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @ToString
 @AllArgsConstructor
 public abstract class UnaryS3MNode implements S3MNode {
 
+    protected S3MSerializer serializer;
     private S3MQueue inputQueue;
     private S3MQueue outputQueue;
 
@@ -43,7 +45,7 @@ public abstract class UnaryS3MNode implements S3MNode {
     }
 
     @Override
-    public List<Serializable> process(List<Serializable> input) {
+    public List<byte[]> process(List<byte[]> input) {
         return Collections.singletonList(process(input.get(0)));
     }
 
@@ -63,6 +65,11 @@ public abstract class UnaryS3MNode implements S3MNode {
         this.outputQueue = outputQueue;
     }
 
-    public abstract Serializable process(Serializable input);
+    public abstract byte[] process(byte[] input);
+
+    @Override
+    public void init(Map<String, String> properties, S3MSerializer serializer) {
+        this.serializer = serializer;
+    }
 
 }

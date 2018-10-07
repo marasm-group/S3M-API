@@ -2,13 +2,15 @@ package org.marasm.s3m.api.nodes;
 
 import org.marasm.s3m.api.S3MNode;
 import org.marasm.s3m.api.S3MQueue;
+import org.marasm.s3m.api.serialization.S3MSerializer;
 
-import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 public abstract class JoiningS3MNode implements S3MNode {
 
+    protected S3MSerializer serializer;
     private List<S3MQueue> inputQueues;
     private S3MQueue outputQueue;
 
@@ -36,7 +38,7 @@ public abstract class JoiningS3MNode implements S3MNode {
     }
 
     @Override
-    public List<Serializable> process(List<Serializable> input) throws Exception {
+    public List<byte[]> process(List<byte[]> input) throws Exception {
         return Collections.singletonList(join(input));
     }
 
@@ -48,5 +50,10 @@ public abstract class JoiningS3MNode implements S3MNode {
         this.outputQueue = outputQueue;
     }
 
-    public abstract Serializable join(List<Serializable> input) throws Exception;
+    public abstract byte[] join(List<byte[]> input) throws Exception;
+
+    @Override
+    public void init(Map<String, String> properties, S3MSerializer serializer) {
+        this.serializer = serializer;
+    }
 }

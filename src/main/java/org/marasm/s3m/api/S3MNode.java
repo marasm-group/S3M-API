@@ -1,6 +1,7 @@
 package org.marasm.s3m.api;
 
-import java.io.Serializable;
+import org.marasm.s3m.api.serialization.S3MSerializer;
+
 import java.util.List;
 import java.util.Map;
 
@@ -14,10 +15,9 @@ public interface S3MNode {
 
     void setOutputQueues(List<S3MQueue> outputQueues);
 
-    List<Serializable> process(List<Serializable> input) throws Exception;
+    List<byte[]> process(List<byte[]> input) throws Exception;
 
-    default void init(Map<String, String> properties) {
-    }
+    void init(Map<String, String> properties, S3MSerializer serializer);
 
     default boolean mutating() {
         return true;

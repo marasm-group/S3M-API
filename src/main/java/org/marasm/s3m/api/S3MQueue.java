@@ -6,6 +6,4 @@ public interface S3MQueue {
 
     int getId();
 
-    Class getMessageClass();
-
 }

@@ -2,11 +2,14 @@ package org.marasm.s3m.api.nodes;
 
 import org.marasm.s3m.api.S3MNode;
 import org.marasm.s3m.api.S3MQueue;
+import org.marasm.s3m.api.serialization.S3MSerializer;
 
 import java.util.List;
+import java.util.Map;
 
 public abstract class BaseS3MNode implements S3MNode {
 
+    protected S3MSerializer serializer;
     private List<S3MQueue> inputQueues;
     private List<S3MQueue> outputQueues;
 
@@ -31,6 +34,11 @@ public abstract class BaseS3MNode implements S3MNode {
             throw new IllegalArgumentException("Too many output queues assigned to " + getClass().getName());
         }
         this.outputQueues = outputQueues;
+    }
+
+    @Override
+    public void init(Map<String, String> properties, S3MSerializer serializer) {
+        this.serializer = serializer;
     }
 
 }
